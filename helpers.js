@@ -1,6 +1,10 @@
 import { db } from "./database.js";
 import nodemailer from "nodemailer";
-import { readFile } from "fs/promises";
+import { readFile, writeFile } from "fs/promises";
+
+let lastRunTimestamp = new Date(Date.now() - (3 * 24 * 60 * 60 * 1000));
+
+
 
 export const queryAsync = (sql, values) => {
   try {
@@ -57,17 +61,21 @@ export const sendEmail = async (address, subject, text) => {
   }
 };
 
-export const getAllData = async (days) => {
+export const getAllData = async () => {
   try {
-    const getAllTelevision = `SELECT * FROM mr_TVstory WHERE createDate BETWEEN DATE_SUB(CURDATE(), INTERVAL ${days} DAY) AND NOW()`;
-    const getAllPrint = `SELECT * FROM mr_printMedia WHERE createDate BETWEEN DATE_SUB(CURDATE(), INTERVAL ${days} DAY) AND NOW()`;
-    const getAllWeb = `SELECT * FROM mr_webMedia WHERE createDate BETWEEN DATE_SUB(CURDATE(), INTERVAL ${days} DAY) AND NOW()`;
-    const getAllRadio = `SELECT * FROM mr_radioStory WHERE createDate BETWEEN DATE_SUB(CURDATE(), INTERVAL ${days} DAY) AND NOW()`;
+    const currentTimestamp = new Date();
+
+    const getAllTelevision = `SELECT * FROM mr_TVstory WHERE createDate > "${lastRunTimestamp.toISOString()}"`;
+    const getAllPrint = `SELECT * FROM mr_printMedia WHERE createDate > "${lastRunTimestamp.toISOString()}"`;
+    const getAllWeb = `SELECT * FROM mr_webMedia WHERE createDate > "${lastRunTimestamp.toISOString()}"`;
+    const getAllRadio = `SELECT * FROM mr_radioStory WHERE createDate > "${lastRunTimestamp.toISOString()}"`;
 
     const television = await queryAsync(getAllTelevision);
     const print = await queryAsync(getAllPrint);
     const web = await queryAsync(getAllWeb);
     const radio = await queryAsync(getAllRadio);
+
+    lastRunTimestamp = currentTimestamp
 
     return {
       television,
@@ -85,7 +93,8 @@ export const getAllClients = async () => {
     const getAllClients = `SELECT c.uid, c.username, c.email, c.phone, c.contactPerson, p.keywords, c.expiryDate, c.status 
         FROM mr_clients c
         JOIN mr_newsPreferences p 
-        ON c.uid = p.uid`;
+        ON c.uid = p.uid
+        WHERE p.email = 1`;
     const clients = await queryAsync(getAllClients);
     // console.log(clients)
     return clients;
@@ -110,3 +119,30 @@ export const hasSimilarElements = async (array1, array2) => {
   return false;
 };
 
+export const getScheduleTime = async () => {
+  const data = await readFile("./schedule.txt", "utf8");
+  const lines = data.split("\n");
+  let first, second;
+  lines.forEach((line) => {
+    if (line.includes("first")) {
+      first = line.split("=")[1].trim();
+    } else if (line.includes("second")) {
+      second = line.split("=")[1].trim();
+    }
+  });
+  return {
+    first,
+    second,
+  };
+};
+
+export const setScheduleTime = async (newFirst, newSecond) => {
+  const data = await readFile("./schedule.txt", "utf8");
+  // console.log(newFirst, newSecond)
+  const updatedContent = data
+    .replace(/first\s*=\s*\d+/, `first=${newFirst}`)
+    .replace(/second\s*=\s*\d+/, `second=${newSecond}`);
+    // console.log(updatedContent)
+
+  await writeFile("schedule.txt", updatedContent, "utf8")
+};

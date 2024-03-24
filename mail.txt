@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,119 +7,139 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
       rel="stylesheet"
     />
-  <style>
-    body {
-      font-family: "Montserrat", sans-serif;
-      background-color: #ffffff;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      justify-content: center;
-    }
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+      }
+      .footer-link{
+        color: white;
+        border: 1px solid white;
+        padding: 5px 1rem;
+        border-radius: 5px;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+      .container {
+        padding: 1rem 4rem;
+      }
+      .main {
+        box-shadow: 0 4px 20px 1px #00000026;
+        border-radius: 5px;
+      }
+      .logo {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
 
-    .container {
-      box-shadow: 0 4px 20px 1px #00000026;
-      padding: 1rem 4rem;
-      border-radius: 5px;
-    }
-    .logo {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 1rem;
-    }
+      .illustration {
+        height: 200px;
+      }
+      .shadow_secondary {
+        box-shadow: 0 4px 3px 1px #00000026;
+        border: 2px dotted #00000026;
+      }
 
-    .illustration {
-      height: 200px;
-    }
-    .shadow_secondary {
-      box-shadow: 0 4px 3px 1px #00000026;
-      border: 2px dotted #00000026;
-    }
+      .article {
+        background-color: #fff;
+        border-radius: 5px;
+        margin: 2rem 0;
+        padding: 20px;
+      }
 
-    .article {
-      background-color: #fff;
-      border-radius: 5px;
-      margin: 2rem 0;
-      padding: 20px;
-    }
+      .article h2 {
+        font-size: 1.5em;
+        margin-top: 0;
+      }
+      h4 {
+        font-size: 1.5em;
+        margin-top: 0;
+      }
 
-    .article h2 {
-      font-size: 1.5em;
-      margin-top: 0;
-    }
-    h4 {
-      font-size: 1.5em;
-      margin-top: 0;
-    }
+      .article p {
+        margin-bottom: 10px;
+      }
 
-    .article p {
-      margin-bottom: 10px;
-    }
+      .article .author {
+        font-style: italic;
+        color: #666;
+        margin-bottom: 2rem;
+      }
 
-    .article .author {
-      font-style: italic;
-      color: #666;
-      margin-bottom: 2rem;
-    }
-
-    .article .button {
-      margin-top: 1rem;
-      border: none;
-      border-radius: 5px;
-      color: #fff;
-      cursor: pointer;
-      padding: 10px 20px;
-      text-decoration: none;
-      transition: background-color 0.3s;
-    }
-    .link {
-      text-decoration: none;
-      color: white !important;
-      height: 100%;
-      width: fit-content;
-      padding: 1rem 3rem;
-      display: flex;
-      justify-content: center;
-      border-radius: 5px;
-    }
-    .btn-gradient {
-      background-image: linear-gradient(#bf1c51, #952838);
-      transition: all 0.3s ease;
-    }
-    .btn-gradient:hover {
-      background-image: linear-gradient(#ec1a60, #862634);
-      transition: all 0.3s ease;
-    }
-  </style>
+      .article .button {
+        margin-top: 1rem;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        padding: 10px 20px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+      .link {
+        text-decoration: none;
+        color: white;
+        height: 100%;
+        width: fit-content;
+        padding: 1rem 3rem;
+        display: flex;
+        justify-content: center;
+        border-radius: 5px;
+      }
+      .btn-gradient {
+        background-image: linear-gradient(#bf1c51, #952838);
+        transition: all 0.3s ease;
+      }
+      .btn-gradient:hover {
+        background-image: linear-gradient(#ec1a60, #862634);
+        transition: all 0.3s ease;
+      }
+      footer {
+        background-color: #952838;
+        color: #fff;
+        padding: 20px 0;
+        text-align: center;
+        width: 100%;
+        margin-top: 1rem;
+        border-radius: 0 0 5px 5px;
+      }
+    </style>
   </head>
   <body>
-    <div class="container">
-      <div class="logo">
-        <img
-          src="https://press-api.nixonanalytics.com/mediarevFiles/Print/Logo.png"
-          alt="Logo"
-        />
+    <div class="main">
+      <div class="container">
+        <div class="logo">
+          <img
+            src="https://press-api.nixonanalytics.com/mediarevFiles/Print/Logo.png"
+            alt="Logo"
+          />
+        </div>
+        <div>
+          <h4>News Clippings Alert | Media Rev</h4>
+          <p>Hello <strong> {RECIPIENTNAME} </strong>,</p>
+          <p>The following articles could be of interest to you</p>
+        </div>
+        <div>{STORY}</div>
       </div>
-      <div>
-        <h4>MediaRev Notification Service</h4>
-        <p>Dear <strong> {RECIPIENTNAME} </strong>,</p>
-        <p>We found some new posts that match your current preferences</p>
-      </div>
-      <div>
-        <img
-          class="illustration"
-          src="https://img.freepik.com/free-vector/domain-names-concept-illustration_114360-2772.jpg"
-          alt="illustration"
-        />
-      </div>
-      <div>{STORYMESSAGE}</div>
       <div class="footer">
-        <a
-          class="link btn-gradient"
-          href="https://mediarev.cervello.com.gh"
-          target="_blank"
-          >Visit the site</a
-        >
+        <footer>
+          <div class="footer-content">
+            <p>&copy; 2024 Nixonanalytics. All rights reserved.</p>
+            <div class="footer-links">
+              <a href="https://mediarev.cervello.com.gh" class="footer-link"
+                >Home</a
+              >
+              <a href="#" class="footer-link">About Us</a>
+              <a href="#" class="footer-link">Services</a>
+              <a href="#" class="footer-link">Contact Us</a>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   </body>
