@@ -101,7 +101,7 @@ const startCronService = () => {
 };
 
 const task = cron.schedule(
-  "0 0 */6 * * *",
+  "0 0 * * *",
   () => {
     console.log(`running task ${num}`);
     handleMailService();
