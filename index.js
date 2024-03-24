@@ -79,16 +79,15 @@ const handleMailService = async () => {
 
       if (newString.includes("Z7rPmDxqE9F5ybL3")) {
         const final = await finalizeMail(newString, client.username);
-        console.log("found");
-        // console.log(final);
-        const mail = await sendEmail(
-          "alexzormelo9@gmail.com",
-          "MediaRev Notification Report",
-          final
+        console.log(
+          `Sending mail to client ${client.username} at ${
+            client.email
+          } time: ${new Date()}`
         );
+        // console.log(client)
+        // console.log(final);
+        const mail = await sendEmail(client.email, "MediaRev Notification Report", final);
         newString = "";
-      } else {
-        console.log("not found");
       }
     }
   } catch (error) {
@@ -96,8 +95,13 @@ const handleMailService = async () => {
   }
 };
 
+const startCronService = () => {
+  console.log("Starting up the notification service...");
+  task.start();
+};
+
 const task = cron.schedule(
-  "10 * * * * * ",
+  "0 0 */6 * * *",
   () => {
     console.log(`running task ${num}`);
     handleMailService();
@@ -113,8 +117,7 @@ app.get("/", (req, res) => {
   res.status(200).send({
     message: "Starting up the notification service...",
   });
-  console.log("Starting up the notification service...");
-  task.start();
+  startCronService();
 });
 
 app.get("/off", (req, res) => {
@@ -131,6 +134,8 @@ app.get("/healthCheck", (req, res) => {
   console.log(`Route: ${req.method} ${req.originalUrl}`);
   console.log("user detected");
 });
+
+startCronService()
 
 app.listen("8000", () => {
   console.log("Notification service open at port 8000");
