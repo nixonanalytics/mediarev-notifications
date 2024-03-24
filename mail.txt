@@ -26,10 +26,12 @@
       }
       .container {
         padding: 1rem 4rem;
+        background-color: #ffffff;
       }
       .main {
         box-shadow: 0 4px 20px 1px #00000026;
         border-radius: 5px;
+        background-color: #ffffff;
       }
       .logo {
         display: flex;
