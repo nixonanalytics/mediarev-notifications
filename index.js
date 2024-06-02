@@ -7,7 +7,6 @@ import {
   getAllData,
   getScheduleTime,
   hasSimilarElements,
-  queryAsync,
   readfile,
   sendEmail,
   setScheduleTime,
@@ -94,6 +93,7 @@ const handleMailService = async () => {
           "News Clippings Alert | Media Rev",
           final
         );
+        console.log(mail)
         newString = "";
       }else{
         console.log(
@@ -113,6 +113,8 @@ const startCronService = async () => {
 };
 
 // "0 0 * * *", 24hrs
+// "0 * * * *" each hour
+// "0 * * * * *" each minute
 const task = cron.schedule(
   "0 * * * *",
   () => {
