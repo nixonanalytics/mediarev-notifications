@@ -117,7 +117,7 @@
       <div class="container">
         <div class="logo">
           <img
-            src="https://press-api.nixonanalytics.com/mediarevFiles/Print/Logo.png"
+            src="https://mediarev.io/mediarevFiles/Photos/Logo.png"
             alt="Logo"
           />
         </div>
