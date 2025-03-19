@@ -2,9 +2,12 @@ import { db } from "./database.js";
 import nodemailer from "nodemailer";
 import { readFile, writeFile } from "fs/promises";
 
-let lastRunTimestamp = new Date(Date.now() - (3 * 24 * 60 * 60 * 1000));
+// three days ago
+// let lastRunTimestamp = new Date(Date.now() - (3 * 24 * 60 * 60 * 1000));
 
-
+// Three months ago
+let lastRunTimestamp = new Date();
+lastRunTimestamp.setMonth(lastRunTimestamp.getMonth() - 3);
 
 export const queryAsync = (sql, values) => {
   try {
@@ -70,12 +73,14 @@ export const getAllData = async () => {
     const getAllWeb = `SELECT * FROM mr_webMedia WHERE createDate > "${lastRunTimestamp.toISOString()}"`;
     const getAllRadio = `SELECT * FROM mr_radioStory WHERE createDate > "${lastRunTimestamp.toISOString()}"`;
 
+    console.log(getAllPrint);
+
     const television = await queryAsync(getAllTelevision);
     const print = await queryAsync(getAllPrint);
     const web = await queryAsync(getAllWeb);
     const radio = await queryAsync(getAllRadio);
 
-    lastRunTimestamp = currentTimestamp
+    lastRunTimestamp = currentTimestamp;
 
     return {
       television,
@@ -142,7 +147,7 @@ export const setScheduleTime = async (newFirst, newSecond) => {
   const updatedContent = data
     .replace(/first\s*=\s*\d+/, `first=${newFirst}`)
     .replace(/second\s*=\s*\d+/, `second=${newSecond}`);
-    // console.log(updatedContent)
+  // console.log(updatedContent)
 
-  await writeFile("schedule.txt", updatedContent, "utf8")
+  await writeFile("schedule.txt", updatedContent, "utf8");
 };

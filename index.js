@@ -25,7 +25,7 @@ const connection = db.getConnection((err, connection) => {
   return console.log("Database couldn't connect...", err);
 });
 
-const layout = `<div class='article shadow_secondary Z7rPmDxqE9F5ybL3'><h2>{TITLE}</h2><p>{SUMMARY}</p><a href='https://mediarev.io/view-story/{URL}' class='button btn-gradient' target='_blank'>See More</a></div>`;
+const layout = `<div class='article shadow_secondary Z7rPmDxqE9F5ybL3'><h2>{TITLE}</h2><p>{SUMMARY}</p><a href='https://mediarev.cervello.com.gh/{URL}' class='button btn-gradient' target='_blank'>See More</a></div>`;
 
 let newString = "";
 
@@ -42,11 +42,10 @@ const finalizeMail = async (newString, name) => {
   //   console.log(newString)
   let finalResult = file.replace("{STORY}", newString);
   finalResult = finalResult.replace("{RECIPIENTNAME}", name);
-    // console.log(finalResult);
+  // console.log(finalResult);
   return finalResult;
   //   console.log(finalResult)
 };
-
 
 const handleProcessData = async (alldata, keywords) => {
   if (alldata.length) {
@@ -66,9 +65,11 @@ const handleProcessData = async (alldata, keywords) => {
 
 const handleMailService = async () => {
   try {
+    // console.log("object")
     const allClients = await getAllClients();
     const alldata = await getAllData();
 
+    // console.log(allClients)
     // console.log(alldata)
 
     for (const client of allClients) {
@@ -89,16 +90,15 @@ const handleMailService = async () => {
         // console.log(client)
         // console.log(final);
         const mail = await sendEmail(
-          client.email,
+          // client.email,
+          "alexzormelo9@gmail.com",
           "News Clippings Alert | Media Rev",
           final
         );
-        console.log(mail)
+        console.log(mail);
         newString = "";
-      }else{
-        console.log(
-          "No new posts to send..."
-        )
+      } else {
+        console.log("No new posts to send...");
       }
     }
   } catch (error) {
@@ -115,11 +115,13 @@ const startCronService = async () => {
 // "0 0 * * *", 24hrs
 // "0 * * * *" each hour
 // "0 * * * * *" each minute
+// "*/5 * * * * *", Cron expression to run every 5 seconds
 const task = cron.schedule(
   "0 * * * *",
   () => {
     const currentHour = new Date().getHours();
-    console.log(currentHour)
+    console.log(currentHour);
+    // handleMailService();
     if (currentHour == schedule.first || currentHour == schedule.second) {
       console.log(`running task ${num}`);
       console.log(`Running task at ${currentHour}:00`);
@@ -132,16 +134,17 @@ const task = cron.schedule(
   }
 );
 
-
 // http://localhost:8000/changeCronSchedule?first=1&second=2
 
 app.get("/changeCronSchedule", async (req, res) => {
   console.log(`Route: ${req.method} ${req.originalUrl}`);
-  const {first, second} = req.query
+  const { first, second } = req.query;
   // console.log(req.query)
-  if(!first || !second) return res.status(404).send({message: "Invalid request"})
-  if(isNaN(first) || isNaN(second)) return res.status(404).send({message: "Invalid variables"})
-  const setNewSchedule = await setScheduleTime(first, second)
+  if (!first || !second)
+    return res.status(404).send({ message: "Invalid request" });
+  if (isNaN(first) || isNaN(second))
+    return res.status(404).send({ message: "Invalid variables" });
+  const setNewSchedule = await setScheduleTime(first, second);
   res.status(200).send({
     message: "schedule time updated...",
   });
