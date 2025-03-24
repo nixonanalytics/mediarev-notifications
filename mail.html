@@ -3,33 +3,142 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Email Template</title>
+    <title>MediaRev Email</title>
+    <style>
+      .illustration {
+        height: 200px;
+      }
+      .shadow_secondary {
+        box-shadow: 0 4px 3px 1px #00000026;
+        border: 2px dotted #00000026;
+      }
+
+      .article {
+        background-color: #fff;
+        border-radius: 5px;
+        margin: 2rem 0;
+        padding: 20px;
+      }
+
+      .article h2 {
+        font-size: 1.5em;
+        margin-top: 0;
+      }
+      h4 {
+        font-size: 1.5em;
+        margin-top: 0;
+      }
+
+      .article p {
+        margin-bottom: 10px;
+      }
+
+      .article .author {
+        font-style: italic;
+        color: #666;
+        margin-bottom: 2rem;
+      }
+      .article .button {
+        margin-top: 1rem;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        cursor: pointer;
+        padding: 10px 20px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+      .link {
+        text-decoration: none;
+        color: white;
+        height: 100%;
+        width: fit-content;
+        padding: 1rem 3rem;
+        display: flex;
+        justify-content: center;
+        border-radius: 5px;
+      }
+      .btn-gradient {
+        background-image: linear-gradient(#bf1c51, #952838);
+        transition: all 0.3s ease;
+      }
+      .btn-gradient:hover {
+        background-image: linear-gradient(#ec1a60, #862634);
+        transition: all 0.3s ease;
+      }
+    </style>
   </head>
-  <body style="margin: 0; padding: 0; background-color: #f4f4f4;">
+
+  <body style="margin: 0; padding: 0; background-color: #f4f4f4">
     <table width="100%" cellspacing="0" cellpadding="0" border="0">
       <tr>
         <td align="center">
           <!-- Main Container -->
-          <table width="600" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; padding: 20px; border-radius: 5px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
-            
+          <table
+            width="600"
+            cellspacing="0"
+            cellpadding="0"
+            border="0"
+            style="
+              background-color: #ffffff;
+              padding: 20px;
+              border-radius: 5px;
+              box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            "
+          >
             <!-- Logo Section -->
             <tr>
-              <td align="center" style="padding-bottom: 20px;">
-                <img src="https://press-api.nixonanalytics.com/mediarevFiles/Print/Logo.png" alt="Logo" width="150" />
+              <td align="center" style="padding-bottom: 20px">
+                <img
+                  src="https://press-api.nixonanalytics.com/mediarevFiles/Print/Logo.png"
+                  alt="Logo"
+                  width="150"
+                />
               </td>
             </tr>
 
             <!-- Content Section -->
             <tr>
               <td>
-                <h4 style="font-family: Arial, sans-serif; font-size: 20px; color: #333; text-align: center; margin-bottom: 10px;">News Clippings Alert | Media Rev</h4>
-                <p style="font-family: Arial, sans-serif; font-size: 14px; color: #666; text-align: center;">
+                <h4
+                  style="
+                    font-family: Arial, sans-serif;
+                    font-size: 20px;
+                    color: #333;
+                    text-align: center;
+                    margin-bottom: 10px;
+                  "
+                >
+                  News Clippings Alert | Media Rev
+                </h4>
+                <p
+                  style="
+                    font-family: Arial, sans-serif;
+                    font-size: 14px;
+                    color: #666;
+                    text-align: center;
+                  "
+                >
                   Hello <strong>{RECIPIENTNAME}</strong>,
                 </p>
-                <p style="font-family: Arial, sans-serif; font-size: 14px; color: #666; text-align: center;">
+                <p
+                  style="
+                    font-family: Arial, sans-serif;
+                    font-size: 14px;
+                    color: #666;
+                    text-align: center;
+                  "
+                >
                   The following articles could be of interest to you:
                 </p>
-                <div style="padding: 10px 20px; font-family: Arial, sans-serif; font-size: 14px; color: #333;">
+                <div
+                  style="
+                    padding: 10px 20px;
+                    font-family: Arial, sans-serif;
+                    font-size: 14px;
+                    color: #333;
+                  "
+                >
                   {STORY}
                 </div>
               </td>
@@ -37,29 +146,93 @@
 
             <!-- Footer Section -->
             <tr>
-              <td align="center" style="background-color: #952838; padding: 15px; border-radius: 0 0 5px 5px;">
-                <p style="font-family: Arial, sans-serif; font-size: 12px; color: #fff; margin-bottom: 10px;">
-                  &copy; 2025 Nixonanalytics. All rights reserved.
+              <td
+                align="center"
+                style="
+                  background-color: #952838;
+                  padding: 15px;
+                  border-radius: 0 0 5px 5px;
+                "
+              >
+                <p
+                  style="
+                    font-family: Arial, sans-serif;
+                    font-size: 12px;
+                    color: #fff;
+                    margin-bottom: 10px;
+                  "
+                >
+                  &copy; 2024 Nixonanalytics. All rights reserved.
                 </p>
                 <table cellspacing="0" cellpadding="0" border="0">
                   <tr>
                     <td>
-                      <a href="https://mediarev.cervello.com.gh" style="font-family: Arial, sans-serif; font-size: 12px; color: white; text-decoration: none; padding: 5px 10px; border: 1px solid white; border-radius: 5px;">Home</a>
+                      <a
+                        href="https://mediarev.cervello.com.gh"
+                        style="
+                          font-family: Arial, sans-serif;
+                          font-size: 12px;
+                          color: white;
+                          text-decoration: none;
+                          margin-right: 5px;
+                          padding: 5px 10px;
+                          border: 1px solid white;
+                          border-radius: 5px;
+                        "
+                        >Home</a
+                      >
                     </td>
                     <td>
-                      <a href="#" style="font-family: Arial, sans-serif; font-size: 12px; color: white; text-decoration: none; padding: 5px 10px; border: 1px solid white; border-radius: 5px;">About Us</a>
+                      <a
+                        href="#"
+                        style="
+                          font-family: Arial, sans-serif;
+                          font-size: 12px;
+                          color: white;
+                          text-decoration: none;
+                          padding: 5px 10px;
+                          margin-right: 5px;
+                          border: 1px solid white;
+                          border-radius: 5px;
+                        "
+                        >About Us</a
+                      >
                     </td>
                     <td>
-                      <a href="#" style="font-family: Arial, sans-serif; font-size: 12px; color: white; text-decoration: none; padding: 5px 10px; border: 1px solid white; border-radius: 5px;">Services</a>
+                      <a
+                        href="#"
+                        style="
+                          font-family: Arial, sans-serif;
+                          font-size: 12px;
+                          color: white;
+                          text-decoration: none;
+                          padding: 5px 10px;
+                          margin-right: 5px;
+                          border: 1px solid white;
+                          border-radius: 5px;
+                        "
+                        >Services</a
+                      >
                     </td>
                     <td>
-                      <a href="#" style="font-family: Arial, sans-serif; font-size: 12px; color: white; text-decoration: none; padding: 5px 10px; border: 1px solid white; border-radius: 5px;">Contact Us</a>
+                      <a
+                        href="#"
+                        style="
+                          font-family: Arial, sans-serif;
+                          font-size: 12px;
+                          color: white;
+                          text-decoration: none;
+                          padding: 5px 10px;
+                          border: 1px solid white;
+                          border-radius: 5px;
+                        "
+                        >Contact Us</a
+                      >
                     </td>
                   </tr>
                 </table>
               </td>
             </tr>
-
           </table>
         </td>
       </tr>
