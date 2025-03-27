@@ -116,7 +116,7 @@ const startCronService = async () => {
 // "0 * * * * *" each minute
 // "*/5 * * * * *", Cron expression to run every 5 seconds
 const task = cron.schedule(
-  "0 * * * * *",
+  "0 * * * *",
   () => {
     const currentHour = new Date().getHours();
     console.log(currentHour);
