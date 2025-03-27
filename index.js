@@ -90,8 +90,7 @@ const handleMailService = async () => {
         // console.log(client)
         // console.log(final);
         const mail = await sendEmail(
-          // client.email,
-          "alexzormelo9@gmail.com",
+          client.email,
           "News Clippings Alert | Media Rev",
           final
         );
