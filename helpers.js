@@ -73,7 +73,7 @@ export const getAllData = async () => {
     const getAllWeb = `SELECT * FROM mr_webMedia WHERE createDate > "${lastRunTimestamp.toISOString()}"`;
     const getAllRadio = `SELECT * FROM mr_radioStory WHERE createDate > "${lastRunTimestamp.toISOString()}"`;
 
-    console.log(getAllPrint);
+    // console.log(getAllPrint);
 
     const television = await queryAsync(getAllTelevision);
     const print = await queryAsync(getAllPrint);
@@ -100,9 +100,17 @@ export const getAllClients = async () => {
         JOIN mr_newsPreferences p 
         ON c.uid = p.uid
         WHERE p.email = 1`;
+    const getAllClientUsers = `SELECT c.uid, cu.username, cu.email, c.phone, c.contactPerson, p.keywords, c.expiryDate, c.status 
+        FROM mr_clientUser cu
+        JOIN mr_clients c ON  cu.clientId = c.uid
+        JOIN mr_newsPreferences p  ON c.uid = p.uid
+        WHERE p.email = 1;`;
     const clients = await queryAsync(getAllClients);
+    const clientsusers = await queryAsync(getAllClientUsers);
+
+    const finaldata = [...clients, ...clientsusers];
     // console.log(clients)
-    return clients;
+    return finaldata;
   } catch (error) {
     console.log(error);
   }

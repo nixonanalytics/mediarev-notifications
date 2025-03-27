@@ -10,12 +10,12 @@
       }
       .shadow_secondary {
         box-shadow: 0 4px 3px 1px #00000026;
-        border: 2px dotted #00000026;
+        border-top: 1px solid #00000026;
       }
 
       .article {
         background-color: #fff;
-        border-radius: 5px;
+        /* border-radius: 5px; */
         margin: 2rem 0;
         padding: 20px;
       }
@@ -38,8 +38,8 @@
         color: #666;
         margin-bottom: 2rem;
       }
-      .article .button {
-        margin-top: 1rem;
+      /* .article .button {
+        margin-top: 3rem;
         border: none;
         border-radius: 5px;
         color: #fff;
@@ -47,7 +47,7 @@
         padding: 10px 20px;
         text-decoration: none;
         transition: background-color 0.3s;
-      }
+      } */
       .link {
         text-decoration: none;
         color: white;
@@ -58,14 +58,14 @@
         justify-content: center;
         border-radius: 5px;
       }
-      .btn-gradient {
+      /* .btn-gradient {
         background-image: linear-gradient(#bf1c51, #952838);
         transition: all 0.3s ease;
       }
       .btn-gradient:hover {
         background-image: linear-gradient(#ec1a60, #862634);
         transition: all 0.3s ease;
-      }
+      } */
     </style>
   </head>
 
@@ -105,18 +105,18 @@
                     font-family: Arial, sans-serif;
                     font-size: 20px;
                     color: #333;
-                    text-align: center;
+                    text-align: start;
                     margin-bottom: 10px;
                   "
                 >
-                  News Clippings Alert | Media Rev
+                  News Clippings Alert
                 </h4>
                 <p
                   style="
                     font-family: Arial, sans-serif;
                     font-size: 14px;
                     color: #666;
-                    text-align: center;
+                    text-align: start;
                   "
                 >
                   Hello <strong>{RECIPIENTNAME}</strong>,
@@ -126,7 +126,7 @@
                     font-family: Arial, sans-serif;
                     font-size: 14px;
                     color: #666;
-                    text-align: center;
+                    text-align: start;
                   "
                 >
                   The following articles could be of interest to you:
@@ -162,7 +162,7 @@
                     margin-bottom: 10px;
                   "
                 >
-                  &copy; 2025 Nixonanalytics. All rights reserved.
+                  &copy; 2024 Nixonanalytics. All rights reserved.
                 </p>
                 <table cellspacing="0" cellpadding="0" border="0">
                   <tr>
