@@ -164,7 +164,7 @@
                 >
                   &copy; 2024 Nixonanalytics. All rights reserved.
                 </p>
-                <table cellspacing="0" cellpadding="0" border="0">
+                <!-- <table cellspacing="0" cellpadding="0" border="0">
                   <tr>
                     <td>
                       <a
@@ -230,7 +230,7 @@
                       >
                     </td>
                   </tr>
-                </table>
+                </table> -->
               </td>
             </tr>
           </table>

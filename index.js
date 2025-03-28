@@ -32,7 +32,7 @@ let newString = "";
 const setUpMail = async (story) => {
   // console.log(story)
   let modified = layout.replace("{TITLE}", story.title);
-  modified = modified.replace("{SUMMARY}", story.summary);
+  modified = modified.replace("{SUMMARY}", story.summary || story.articleSummary);
   modified = modified.replace("{URL}", story.mid);
   newString = newString + modified;
 };
