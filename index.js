@@ -25,7 +25,7 @@ const connection = db.getConnection((err, connection) => {
   return console.log("Database couldn't connect...", err);
 });
 
-const layout = `<div class='article shadow_secondary Z7rPmDxqE9F5ybL3'><h2>{TITLE}</h2><p>{SUMMARY}</p><a href='https://mediarev.cervello.com.gh/{URL}' class='button btn-gradient' target='_blank'>See More >>> </a></div>`;
+const layout = `<div class='article shadow_secondary Z7rPmDxqE9F5ybL3'><h2>{TITLE}</h2><p>{SUMMARY}</p><a href='https://mediarev.cervello.com.gh?id={URL}' class='button btn-gradient' target='_blank'>See More >>> </a></div>`;
 
 let newString = "";
 
@@ -100,6 +100,7 @@ const handleMailService = async () => {
         console.log("No new posts to send...");
       }
     }
+    console.log("DONE!")
   } catch (error) {
     console.log(error);
   }
