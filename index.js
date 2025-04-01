@@ -3,10 +3,12 @@ import cors from "cors";
 import cron from "node-cron";
 import { db } from "./database.js";
 import {
+  generateToken,
   getAllClients,
   getAllData,
   getScheduleTime,
   hasSimilarElements,
+  queryAsync,
   readfile,
   sendEmail,
   setScheduleTime,
@@ -25,15 +27,19 @@ const connection = db.getConnection((err, connection) => {
   return console.log("Database couldn't connect...", err);
 });
 
-const layout = `<div class='article shadow_secondary Z7rPmDxqE9F5ybL3'><h2>{TITLE}</h2><p>{SUMMARY}</p><a href='https://mediarev.cervello.com.gh?id={URL}' class='button btn-gradient' target='_blank'>See More >>> </a></div>`;
+const layout = `<div class='article shadow_secondary Z7rPmDxqE9F5ybL3'><h2>{TITLE}</h2><p>{SUMMARY}</p><a href='https://mediarev.cervello.com.gh?id={URL}&utk={TOKEN}' class='button btn-gradient' target='_blank'>See More >>> </a></div>`;
 
 let newString = "";
 
-const setUpMail = async (story) => {
+const setUpMail = async (story, token) => {
   // console.log(story)
   let modified = layout.replace("{TITLE}", story.title);
-  modified = modified.replace("{SUMMARY}", story.summary || story.articleSummary);
+  modified = modified.replace(
+    "{SUMMARY}",
+    story.summary || story.articleSummary
+  );
   modified = modified.replace("{URL}", story.mid);
+  modified = modified.replace("{TOKEN}", token);
   newString = newString + modified;
 };
 
@@ -47,7 +53,7 @@ const finalizeMail = async (newString, name) => {
   //   console.log(finalResult)
 };
 
-const handleProcessData = async (alldata, keywords) => {
+const handleProcessData = async (alldata, keywords, token) => {
   if (alldata.length) {
     for (const data of alldata) {
       const dataKeywords = data.keywords.split(",");
@@ -56,7 +62,7 @@ const handleProcessData = async (alldata, keywords) => {
         dataKeywords
       );
       if (hasSimilarElement) {
-        await setUpMail(data);
+        await setUpMail(data, token);
         // console.log("found similar");
       }
     }
@@ -74,11 +80,12 @@ const handleMailService = async () => {
 
     for (const client of allClients) {
       const keywords = client.keywords.split(",");
+      const token = generateToken(8);
 
-      await handleProcessData(alldata.television, keywords);
-      await handleProcessData(alldata.print, keywords);
-      await handleProcessData(alldata.web, keywords);
-      await handleProcessData(alldata.radio, keywords);
+      await handleProcessData(alldata.television, keywords, token);
+      await handleProcessData(alldata.print, keywords, token);
+      await handleProcessData(alldata.web, keywords, token);
+      await handleProcessData(alldata.radio, keywords, token);
 
       if (newString.includes("Z7rPmDxqE9F5ybL3")) {
         const final = await finalizeMail(newString, client.username);
@@ -94,13 +101,21 @@ const handleMailService = async () => {
           "News Clippings Alert | Media Rev",
           final
         );
-        console.log(mail);
+        // console.log(mail);
+        if (mail.response.startsWith("250")) {
+          const insertQuery =
+            "INSERT INTO emailDispatch(`uid`, `token`, `status`, `sendDate`) VALUES (?)";
+          const values = [client.uid, token, "DISPATCHED", new Date()];
+
+          const addDispatch = await queryAsync(insertQuery, [values]);
+          console.log("Dispatch record added successfully");
+        }
         newString = "";
       } else {
         console.log("No new posts to send...");
       }
     }
-    console.log("DONE!")
+    console.log("DONE!");
   } catch (error) {
     console.log(error);
   }

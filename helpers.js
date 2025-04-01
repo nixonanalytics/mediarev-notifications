@@ -52,13 +52,9 @@ export const sendEmail = async (address, subject, text) => {
       html: text,
     };
 
-    transporter.sendMail(mailOptions, (err, info) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log("Email sent .... " + info.response);
-      }
-    });
+    const response = transporter.sendMail(mailOptions);
+    console.log("Email sent .... " + (await response).response);
+    return response;
   } catch (error) {
     console.log(error);
   }
@@ -158,4 +154,14 @@ export const setScheduleTime = async (newFirst, newSecond) => {
   // console.log(updatedContent)
 
   await writeFile("schedule.txt", updatedContent, "utf8");
+};
+
+export const generateToken = (length) => {
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let token = "";
+  for (let i = 0; i < length; i++) {
+    token += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return token;
 };
