@@ -96,7 +96,7 @@ export const getAllClients = async () => {
         JOIN mr_newsPreferences p 
         ON c.uid = p.uid
         WHERE p.email = 1`;
-    const getAllClientUsers = `SELECT c.uid, cu.username, cu.email, c.phone, c.contactPerson, p.keywords, c.expiryDate, c.status 
+    const getAllClientUsers = `SELECT c.uid AS cuid, cu.userId AS uid, cu.username, cu.email, c.phone, c.contactPerson, p.keywords, c.expiryDate, c.status 
         FROM mr_clientUser cu
         JOIN mr_clients c ON  cu.clientId = c.uid
         JOIN mr_newsPreferences p  ON c.uid = p.uid
